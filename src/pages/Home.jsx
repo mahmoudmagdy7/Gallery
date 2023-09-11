@@ -26,7 +26,7 @@ export default function Home() {
         </header>
       </section>
       <Categories />
-      <section className=" sm:p-10 min-h-[35rem] bg-red-500 p-2">
+      <section className="  min-h-[35rem]  rounded-3xl  bg-[#dee0f2] overflow-hidden md:p-16">
         <Features />
       </section>
     </>

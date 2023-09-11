@@ -16,9 +16,9 @@ module.exports = withMT({
         xs: "320px", // Extra small screens
         sm: "640px", // Small screens
         md: "768px", // Medium screens
+        // smd: "920px", // Custom screen size
         lg: "1024px", // Large screens
         xl: "1280px", // Extra large screens
-        smd: "900px", // Custom screen size
       },
     },
   },
