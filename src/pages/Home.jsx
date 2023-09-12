@@ -8,7 +8,7 @@ import Features from "../components/Features";
 export default function Home() {
   return (
     <>
-      <section className="h-screen relative sm:p-3 p-3">
+      <section id="header-section" className="h-screen relative sm:p-3 p-3 ">
         <header className=" h-full rounded-3xl  bg-[#dee0f2]">
           <nav className="p-5 fixed start-0 end-0 z-50">
             <StickyNavbar />

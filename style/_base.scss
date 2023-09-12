@@ -1,4 +1,6 @@
 :root {
+  height: -webkit-fill-available;
+
   direction: rtl;
   font-family: "El Messiri", sans-serif;
   @each $name, $color in $light {
@@ -63,4 +65,8 @@ form {
   bottom: 5px;
   left: 0;
   z-index: -1;
+}
+
+body {
+  height: -webkit-fill-available;
 }
