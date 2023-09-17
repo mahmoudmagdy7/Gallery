@@ -1,5 +1,5 @@
-import React from "react";
-import { Navbar, MobileNav, Typography, Button, Menu, MenuHandler, MenuList, MenuItem, Avatar, Card, IconButton } from "@material-tailwind/react";
+import React, { useEffect } from "react";
+import { Navbar, Collapse, Typography, Button, Menu, MenuHandler, MenuList, MenuItem, Avatar, Card, IconButton } from "@material-tailwind/react";
 import {
   CubeTransparentIcon,
   UserCircleIcon,
@@ -15,39 +15,29 @@ import {
   UserIcon,
   ChatBubbleBottomCenterIcon,
 } from "@heroicons/react/24/outline";
+import { Link } from "react-router-dom";
 
 // profile menu component
 
 // nav list menu
 const navListMenuItems = [
   {
-    title: "@material-tailwind/html",
+    title: "البحيرة",
     description: "Learn how to use @material-tailwind/html, packed with rich components and widgets.",
-  },
-  {
-    title: "@material-tailwind/react",
-    description: "Learn how to use @material-tailwind/react, packed with rich components for React.",
-  },
-  {
-    title: "Material Tailwind PRO",
-    description: "A complete set of UI Elements for building faster websites in less time.",
   },
 ];
 
 function NavListMenu() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
 
-  const renderItems = navListMenuItems.map(({ title, description }) => (
-    <a href="#" key={title}>
+  const renderItems = navListMenuItems.map(({ title, link }) => (
+    <Link to={link} key={title}>
       <MenuItem>
         <Typography variant="h6" color="blue-gray" className="mb-1">
           {title}
         </Typography>
-        <Typography variant="small" color="gray" className="font-normal">
-          {description}
-        </Typography>
       </MenuItem>
-    </a>
+    </Link>
   ));
 
   return (
@@ -61,10 +51,8 @@ function NavListMenu() {
             </MenuItem>
           </Typography>
         </MenuHandler>
+
         <MenuList className="hidden w-[36rem] grid-cols-7 gap-3 overflow-visible lg:grid">
-          <Card color="blue" shadow={false} variant="gradient" className="col-span-3 grid h-full w-full place-items-center rounded-md">
-            <RocketLaunchIcon strokeWidth={1} className="h-28 w-28" />
-          </Card>
           <ul className="col-span-4 flex w-full flex-col gap-1">{renderItems}</ul>
         </MenuList>
       </Menu>
@@ -81,33 +69,47 @@ const navListItems = [
   {
     label: "عني",
     icon: UserIcon,
+    link: "/about-me",
   },
   {
     label: "تواصل معي",
     icon: ChatBubbleBottomCenterIcon,
+    link: "https://wa.me/201062210524",
   },
   {
-    label: "Docs",
+    label: "الرئيسية",
     icon: CodeBracketSquareIcon,
+    link: "/",
   },
 ];
 
 function NavList() {
   return (
-    <ul className="mb-4 mt-2 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center">
-      <NavListMenu />
-      {navListItems.map(({ label, icon }, key) => (
-        <Typography key={label} as="a" href="#" className="font-normal text-lg">
-          <MenuItem className="flex items-center gap-2 ">
-            {React.createElement(icon, { className: "h-[18px] w-[18px]" })} {label}
-          </MenuItem>
-        </Typography>
-      ))}
-    </ul>
+    <>
+      <ul className="mb-4 mt-2 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center text-blue-gray-900">
+        {/* <NavListMenu /> */}
+        {navListItems.map(({ label, icon, link }, key) => (
+          <Typography key={label} as="a" href={link} className="font-normal text-lg">
+            <MenuItem className="flex items-center gap-2 ">
+              {React.createElement(icon, { className: "h-[18px] w-[18px]" })} {label}
+            </MenuItem>
+          </Typography>
+        ))}
+      </ul>
+    </>
   );
 }
 
 export function StickyNavbar() {
+  useEffect(() => {
+    window.addEventListener("scroll", () => {
+      if (window.scrollY > 30) {
+        document.querySelector("nav").style.backgroundColor = "#fff";
+      } else {
+        document.querySelector("nav").style.backgroundColor = "transparent";
+      }
+    });
+  }, []);
   const [isNavOpen, setIsNavOpen] = React.useState(false);
 
   const toggleIsNavOpen = () => setIsNavOpen((cur) => !cur);
@@ -130,9 +132,9 @@ export function StickyNavbar() {
         </div>
       </div>
 
-      <MobileNav open={isNavOpen} className="overflow-hidden bg-white rounded-lg">
+      <Collapse open={isNavOpen} className="overflow-hidden bg-white rounded-lg">
         <NavList />
-      </MobileNav>
+      </Collapse>
     </Navbar>
   );
 }

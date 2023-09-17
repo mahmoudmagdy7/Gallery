@@ -1,5 +1,5 @@
 import { Button } from "@nextui-org/react";
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { StickyNavbar } from "../components/StickyNavbar";
 import Categories from "../components/Categories";
@@ -8,9 +8,9 @@ import Features from "../components/Features";
 export default function Home() {
   return (
     <>
-      <section id="header-section" className="h-screen relative sm:p-3 p-3 ">
-        <header className=" h-full rounded-3xl  bg-[#dee0f2]">
-          <nav className="p-5 fixed start-0 end-0 z-50">
+      <section id="header-section" className="h-96 md:h-[40rem] relative sm:p-3 p-3 ">
+        <header className=" h-full rounded-3xl  bg-[#dee0f2] ">
+          <nav className="px-5 mt-2 fixed start-0 end-0 z-50 mx-5 rounded-lg">
             <StickyNavbar />
           </nav>
 

@@ -1,30 +1,48 @@
 import { Button } from "@nextui-org/react";
-import React from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import siteConfig from "../../public/site-config";
 
 export default function Categories() {
-  const categories = [
-    "البحيرة",
-    "سيناء",
-    "القهرة",
-    "شهداء",
-    "شهداء القوات المسلحة",
-    " شهداء مدنيين",
-    " محافظة البحيرة",
-    "وجوه مصرية",
-    "وجوه عربية",
-    "مشاهير",
-    "من معارضنا",
-    "فيديوهات",
-    "منوعات",
-    "على قيد الحياة",
-    "مزدوجة",
-    "مميزة",
-    "تدريب",
-    "أمير",
-    "اوريجامى",
-  ];
+  // const categories = [
+  //   "البحيرة",
+  //   "سيناء",
+  //   "القهرة",
+  //   "شهداء",
+  //   "شهداء القوات المسلحة",
+  //   " شهداء مدنيين",
+  //   " محافظة البحيرة",
+  //   "وجوه مصرية",
+  //   "وجوه عربية",
+  //   "مشاهير",
+  //   "من معارضنا",
+  //   "فيديوهات",
+  //   "منوعات",
+  //   "على قيد الحياة",
+  //   "مزدوجة",
+  //   "مميزة",
+  //   "تدريب",
+  //   "أمير",
+  //   "اوريجامى",
+  // ];
 
+  const [categories, setCategories] = useState(null);
+
+  async function getCategories() {
+    try {
+      const { data } = await axios.get(`${siteConfig.ApiUrl}/categories`);
+      setCategories(data.data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  useEffect(() => {
+    getCategories();
+  }, []);
+
+  // categories;
   return (
     <section className=" py-10">
       <div className="max-w-screen-2xl m-auto">
@@ -39,10 +57,10 @@ export default function Categories() {
             <p className="px-2  sm:text-3xl">ستجد هنا البورتريهات مقسمه حسب القسم </p>
           </div>
           <ul className="flex gap-5 flex-wrap justify-center p-3 ">
-            {categories.map((category, index) => (
-              <li key={index}>
+            {categories?.map((category, index) => (
+              <li key={category._id}>
                 <Button className="text-2xl p-4 cbg-primary ct-5 ">
-                  <Link to={`/category/${category}`}>{category}</Link>
+                  <Link to={`/category/${category._id}`}>{category.name}</Link>
                 </Button>
               </li>
             ))}

@@ -16,10 +16,13 @@ import MainDashboard from "./pages/admin/MainDashboard";
 import Students from "./pages/admin/Students";
 import AdminProtection from "./components/AdminProtection";
 import Wallets from "./pages/admin/Wallets";
+import { Post } from "./pages/Post";
+import { Category } from "./pages/Category";
 
 const route = createBrowserRouter([
   { path: "/auth/login", element: <Login /> },
-  { path: "/auth/signUp", element: <SignUp /> },
+  { path: "/post/:id", element: <Post /> },
+  { path: "/category/:id", element: <Category /> },
   {
     path: "/",
     element: <Home />,
