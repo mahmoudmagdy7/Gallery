@@ -8,6 +8,7 @@ export default function Categories() {
   // const categories = [
   //   "البحيرة",
   //   "سيناء",
+  //   "الروضة",
   //   "القهرة",
   //   "شهداء",
   //   "شهداء القوات المسلحة",

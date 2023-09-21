@@ -2,7 +2,7 @@ import ReactDOM from "react-dom/client";
 // import * as React from "react";
 // import "./index.css";
 import "../style/App.scss";
-import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import { RouterProvider, createBrowserRouter, createHashRouter } from "react-router-dom";
 import { NextUIProvider } from "@nextui-org/react";
 
 import Login from "./pages/auth/login";
@@ -22,7 +22,7 @@ import Categories from "./components/Categories";
 import CategoriesPage from "./pages/CategoriesPage";
 import AboutMe from "./pages/AboutMe";
 
-const route = createBrowserRouter([
+const route = createHashRouter([
   { path: "/auth/login", element: <Login /> },
   { path: "/post/:id", element: <Post /> },
   { path: "/about-me", element: <AboutMe /> },
