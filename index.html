@@ -14,6 +14,18 @@
 
 
   </script>
+  <script>
+
+
+    setInterval(async () => {
+      try {
+        const data = await fetch(`https://gallery-api-6b6y.onrender.com/api/v1/categories`);
+        console.log('The server loaded again...');
+      } catch (error) {
+        console.log(error);
+      }
+    }, 800000)
+  </script>
 </body>
 
 </html>

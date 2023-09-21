@@ -7,6 +7,7 @@ import axios from "axios";
 import siteConfig from "../../public/site-config";
 import { Card, Spinner } from "@nextui-org/react";
 import Categories from "../components/Categories";
+import Footer from "../components/Footer";
 export const Post = () => {
   const { id } = useParams();
   const [post, setPost] = useState(null);
@@ -56,6 +57,7 @@ export const Post = () => {
           <Categories />
         </div>
       </section>
+      <Footer />
     </>
   );
 };

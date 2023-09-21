@@ -18,18 +18,20 @@ import AdminProtection from "./components/AdminProtection";
 import Wallets from "./pages/admin/Wallets";
 import { Post } from "./pages/Post";
 import { Category } from "./pages/Category";
+import Categories from "./components/Categories";
+import CategoriesPage from "./pages/CategoriesPage";
+import AboutMe from "./pages/AboutMe";
 
 const route = createBrowserRouter([
   { path: "/auth/login", element: <Login /> },
   { path: "/post/:id", element: <Post /> },
+  { path: "/about-me", element: <AboutMe /> },
+  { path: "/categories", element: <CategoriesPage /> },
   { path: "/category/:id", element: <Category /> },
-  {
-    path: "/",
-    element: <Home />,
-  },
+  { path: "/", element: <Home /> },
 
   {
-    path: "/f35-fighter",
+    path: "/admin",
     element: (
       <AdminProtection>
         <AdminDashboardLayout />

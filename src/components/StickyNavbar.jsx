@@ -14,6 +14,7 @@ import {
   Bars2Icon,
   UserIcon,
   ChatBubbleBottomCenterIcon,
+  QueueListIcon,
 } from "@heroicons/react/24/outline";
 import { Link } from "react-router-dom";
 
@@ -80,6 +81,11 @@ const navListItems = [
     label: "الرئيسية",
     icon: CodeBracketSquareIcon,
     link: "/",
+  },
+  {
+    label: "الاقسام",
+    icon: QueueListIcon,
+    link: "/categories",
   },
 ];
 
