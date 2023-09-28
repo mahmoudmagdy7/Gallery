@@ -27,7 +27,8 @@ export const Post = () => {
     try {
       const { data } = await axios.post(`${siteConfig.ApiUrl}/posts/${id}`);
       setLikes(data.result.likes);
-      document.getElementById("likes-button").setAttribute("disabled", "disabled");
+      document.getElementById("likes-button").setAttribute("data-disabled", true);
+      document.getElementById("likes-button").setAttribute("disabled", "true");
     } catch (error) {
       console.log(error);
     }
