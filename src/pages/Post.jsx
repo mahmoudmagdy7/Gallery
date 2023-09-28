@@ -2,21 +2,32 @@ import React, { useEffect, useState } from "react";
 import { StickyNavbar } from "../components/StickyNavbar";
 
 import { Carousel } from "@material-tailwind/react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 import siteConfig from "../../public/site-config";
-import { Card, Spinner } from "@nextui-org/react";
+import { Button, Card, Spinner } from "@nextui-org/react";
 import Categories from "../components/Categories";
 import Footer from "../components/Footer";
+import { Heart, ThumbsUp } from "@phosphor-icons/react";
 export const Post = () => {
   const { id } = useParams();
   const [post, setPost] = useState(null);
-
+  const [likes, setLikes] = useState(0);
+  console.log(post?.category);
   async function getSpecificPost() {
     try {
       const { data } = await axios.get(`${siteConfig.ApiUrl}/posts/${id}`);
       setPost(data.result);
-      console.log(post);
+      setLikes(data.result.likes);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  async function addLike() {
+    try {
+      const { data } = await axios.post(`${siteConfig.ApiUrl}/posts/${id}`);
+      setLikes(data.result.likes);
+      document.getElementById("likes-button").setAttribute("disabled", "disabled");
     } catch (error) {
       console.log(error);
     }
@@ -38,15 +49,30 @@ export const Post = () => {
           ) : (
             <>
               <Carousel className="rounded-xl  max-h-[694px]  overflow-hidden">
-                <img src={post.image} alt="image 2" className="h-full grow w-full object-cover" />
+                <img
+                  src={post.image != "" ? post.image : "https://res.cloudinary.com/dhei5kh8z/image/upload/v1694555379/images/qurklysqbztdyva7jwgh.jpg"}
+                  alt="image 2"
+                  className="h-full grow w-full object-cover"
+                />
               </Carousel>
               <div className="  ps-2 pe-5 py-5" style={{ direction: "rtl" }}>
                 <h2 className="text-3xl font-semibold mb-5">{post.title}</h2>
                 <p className="mb-5">{post.description} </p>
+                <div className="flex items-center gap-6">
+                  <Button id="likes-button" onClick={addLike} size="sm" className="px-0">
+                    <Heart color="red" weight="fill" size={20} />{" "}
+                  </Button>
+                  <span className="text-lg">
+                    اعجاب : <span className="text-red-600 font-bold">{likes}</span>
+                  </span>
+                </div>
                 <div>
-                  {post?.category.map((c) => {
-                    <span>{c}</span>;
-                  })}{" "}
+                  <h2 className="font-semibold">الاقسام </h2>
+                  {post?.category.map((c) => (
+                    <Link className="inline-block mx-1 ct-primary" to={"/category/" + c._id}>
+                      {c.name}
+                    </Link>
+                  ))}
                 </div>
               </div>
             </>

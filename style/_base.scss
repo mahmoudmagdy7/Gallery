@@ -10,11 +10,11 @@
 body {
   transition: background-color 0.5s, color 0.5s;
 }
-.dark-theme {
-  @each $name, $color in $dark {
-    --color-#{$name}: #{$color};
-  }
-}
+// .dark-theme {
+//   @each $name, $color in $dark {
+//     --color-#{$name}: #{$color};
+//   }
+// }
 
 @function getColor($color-name) {
   @return var(--color-#{$color-name});

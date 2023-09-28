@@ -11,8 +11,6 @@ import siteConfig from "/public/site-config";
    =========================================+
    * TODO:                                  |
    * ? Password validation                  |
-   * * National ID validation               |
-   * ! Handling the errors with backend     | 
    =========================================+
    */
 
@@ -27,7 +25,7 @@ export default function Login() {
 
   const [isSubmit, setIsSubmit] = useState(false); // Loading spinner state
   // Input values initialization
-  const phoneNumber = useRef("");
+  const userName = useRef("");
   const password = useRef("");
 
   async function handleSubmit(e) {
@@ -35,39 +33,36 @@ export default function Login() {
 
     // Getting inputs values
     const loginData = {
-      phone: phoneNumber.current.value,
+      email: userName.current.value,
       password: password.current.value,
     };
     try {
       setIsSubmit(true); // Turn on loading spinner
       const { data } = await axios.post(`${siteConfig.ApiUrl}/auth/login`, loginData); // Fetch the data
       setIsSubmit(false); // Turn off loading spinner after getting the response
-      Cookies.set("userToken", data.token, { expires: 1 }); // Expires after 1 days
       // Notify the student that login success
       toast.success(" تم تسجيل الدخول بنجاح ");
-      toast.loading(" جاري تحويلك للصفحة الرئيسية "); // !redirect the user to home page
+      toast.loading(" جاري تحويلك للصفحة الادمن "); // !redirect the user to admin page
 
-      router("/student-dashboard");
+      router("/admin");
     } catch (error) {
       const { msgError } = error.response?.data;
-      if (msgError === "User not found") {
-        toast.error("لا يوجب بيانات لهاذا المستخدم ");
-      } else if (msgError === "Password incorrect") {
-        toast.error("الرقم السري الذي ادخلته غير صيحي");
-      }
+
+      toast.error(msgError);
+
       setIsSubmit(false);
     }
   }
 
   function handleValidation(e) {
-    if (phoneNumber.current.value.match(/^(01)[0-9]{9}$/) && !password.current.value == "") {
+    if (userName.current.value.match(/^admin@admin$/) && !password.current.value == "") {
       document.querySelector("button").disabled = false;
     } else {
       document.querySelector("button").disabled = true;
     }
     //  Phone Number Validation
-    if (e.target.id === "phoneNumber") {
-      if (!phoneNumber.current.value.match(/^(01)[0-9]{9}$/)) {
+    if (e.target.id === "userName") {
+      if (!userName.current.value.match(/^admin@admin$/)) {
         document.getElementById("phone-alert").classList.remove("hidden");
       } else {
         document.getElementById("phone-alert").classList.add("hidden");
@@ -86,34 +81,27 @@ export default function Login() {
         </div>
         <div className="w-[24rem] mx-4 z-10">
           <div className="text-center form-header">
-            <figure className="">
-              <img className="m-auto  h-[100px]" src="/assets/images/main-logo.png" alt="physiker logo" />
-            </figure>
-            <h2 className="ct-1 text-2xl font-semibold mb-2">اهلا بك مرة اخري</h2>
-            <p className="ct-3"> من فضل قم بتسجيل الدخول للمتابعة </p>
+            <h2 className="ct-1 text-2xl font-semibold mb-2">اهلا بيك يا حج</h2>
+            <p className="ct-3">هناخد من وقتك 35 ثانيه تسجل فيهم </p>
           </div>
           {/* form main content */}
           <form onSubmit={handleSubmit} className="card mt-5 rounded-lg p-5 lg:p-7 shadow-lg shadow-[#0000000d] border-neutral-800 border br-card   ">
             <Toaster />
 
             <label className="mb-5 block">
-              <span className="text-start ct-1">رقم الهاتف : </span>
+              <span className="text-start ct-1">أسم المستخدم: </span>
               <span className="relative mt-1.5 flex">
                 <input
-                  maxLength={11}
-                  ref={phoneNumber}
+                  ref={userName}
                   onChange={handleValidation}
                   className="form-input peer w-full ct-1 rounded-lg border border-slate-300 bg-transparent px-3 py-2 pl-9 placeholder:text-slate-400/70 hover:z-10 hover:border-slate-400 dark:hover:border-gray-700 focus:border-[#4f46e5]  dark:focus:border-[#09bc9b]  focus:z-10 outline-0 br-input"
-                  placeholder="01xxxxxxxxx"
+                  placeholder="xxxxxxxxx"
                   type="text"
-                  id="phoneNumber"
+                  id="userName"
                 />
-                <span className="pointer-events-none absolute end-0 flex h-full w-10 items-center justify-center text-slate-400 peer-focus:text-[#4f46e5] dark:peer-focus:text-[#09bc9b]  ">
-                  <Phone size={20} />
-                </span>
               </span>
               <p className="mt-2 text-red-600 hidden" id="phone-alert">
-                من فضلك ادخل رقم هاتف صحيح !
+                لو انت هكر هجيبك لو انت الحج اسم المستخدم غلط او لسه ما كملتوش
               </p>
             </label>
             <label>
@@ -135,14 +123,7 @@ export default function Login() {
                 </span>
               </span>
             </label>
-            <div className="flex justify-between">
-              <Link to="/forget-password" className="ct-2 text-sm mt-3 inline-block hover:text-[#000000c7] dark:hover:text-[#fff]">
-                نسيت الرقم السري ؟
-              </Link>
-              <Link target="_blank" to="https://wa.me/201061005364" className="ct-2 text-sm mt-3 inline-block hover:text-[#000000c7] dark:hover:text-[#fff]">
-                تواصل مع الدعم
-              </Link>
-            </div>
+
             {!isSubmit ? (
               <Button disabled type="submit" className="h-9 w-full mt-5 cbg-primary ct-5 cbg-primary-hover rounded-lg text-md disabled:opacity-40">
                 <span>دخول</span>
@@ -152,12 +133,6 @@ export default function Login() {
                 <span>دخول</span>
               </Button>
             )}
-            <p className="ct-2 text-sm mt-4 text-center">
-              لا تمتلك حساب ؟
-              <Link className="ct-primary" to="/auth/signup">
-                &ensp; إنشاء حساب
-              </Link>
-            </p>
           </form>
           <div>
             <p className="text-center text-s ct-3 mt-10 ">

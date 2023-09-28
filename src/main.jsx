@@ -6,23 +6,18 @@ import { RouterProvider, createBrowserRouter, createHashRouter } from "react-rou
 import { NextUIProvider } from "@nextui-org/react";
 
 import Login from "./pages/auth/login";
-import SignUp from "./pages/auth/signup";
 import Home from "./pages/Home";
-import Layout from "./pages/Layout";
-import StudentDashboard from "./pages/StudentDashboard";
 import ThemProvider from "./components/ThemProvider";
 import AdminDashboardLayout from "./pages/admin/AdminDashboardLayout";
-import MainDashboard from "./pages/admin/MainDashboard";
-import Students from "./pages/admin/Students";
 import AdminProtection from "./components/AdminProtection";
-import Wallets from "./pages/admin/Wallets";
 import { Post } from "./pages/Post";
 import { Category } from "./pages/Category";
-import Categories from "./components/Categories";
 import CategoriesPage from "./pages/CategoriesPage";
 import AboutMe from "./pages/AboutMe";
+import AddPost from "./pages/admin/AddPost";
+import AddCategory from "./pages/admin/AddCategory";
 
-const route = createHashRouter([
+const route = createBrowserRouter([
   { path: "/auth/login", element: <Login /> },
   { path: "/post/:id", element: <Post /> },
   { path: "/about-me", element: <AboutMe /> },
@@ -39,9 +34,8 @@ const route = createHashRouter([
     ),
     children: [
       // Admin Dashboard routes
-      { path: "", element: <MainDashboard /> },
-      { path: "students", element: <Students /> },
-      { path: "add-funds", element: <Wallets /> },
+      { path: "add-post", element: <AddPost /> },
+      { path: "add-category", element: <AddCategory /> },
     ],
   },
 ]);
