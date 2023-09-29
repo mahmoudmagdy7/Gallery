@@ -1,0 +1,18 @@
+[debug] [2023-09-29T02:32:32.952Z] ----------------------------------------------------------------------
+[debug] [2023-09-29T02:32:32.954Z] Command:       /usr/bin/node /usr/bin/firebase deploy
+[debug] [2023-09-29T02:32:32.955Z] CLI Version:   12.6.1
+[debug] [2023-09-29T02:32:32.955Z] Platform:      linux
+[debug] [2023-09-29T02:32:32.955Z] Node Version:  v20.7.0
+[debug] [2023-09-29T02:32:32.955Z] Time:          Fri Sep 29 2023 05:32:32 GMT+0300 (Eastern European Summer Time)
+[debug] [2023-09-29T02:32:32.955Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2023-09-29T02:32:33.023Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2023-09-29T02:32:33.024Z] > authorizing via signed-in user (mahmoudmagdy.r7@gmail.com)
+[debug] [2023-09-29T02:32:33.024Z] [iam] checking project gallery-47 for permissions ["firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2023-09-29T02:32:33.026Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/gallery-47:testIamPermissions [none]
+[debug] [2023-09-29T02:32:33.026Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/gallery-47:testIamPermissions x-goog-quota-user=projects/gallery-47
+[debug] [2023-09-29T02:32:33.026Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/gallery-47:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2023-09-29T02:32:34.007Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/gallery-47:testIamPermissions 200
+[debug] [2023-09-29T02:32:34.008Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/gallery-47:testIamPermissions {"permissions":["firebase.projects.get","firebasehosting.sites.update"]}
+[debug] [2023-09-29T02:32:34.009Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/gallery-47 [none]
+[debug] [2023-09-29T02:32:34.443Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/gallery-47 200

@@ -23,7 +23,8 @@ function Footer() {
         <Link className="m-0 p-0 ct-primary">Mahmoud Magdy</Link>
         <span> and </span>
 
-        <Link className="m-0 p-0 ct-primary"> Ahmed Ashraf</Link>
+        <Link className="m-0 p-0 ct-primary ms-3"> Ahmed Ashraf</Link>
+        <span>v.7.0</span>
       </p>
     </div>
   );

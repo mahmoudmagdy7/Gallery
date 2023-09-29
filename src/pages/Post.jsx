@@ -65,7 +65,7 @@ export const Post = () => {
                 <p className="mb-5">{post.description} </p>
                 <div className="flex items-center gap-6">
                   {likesStatues ? (
-                    !likedPosts.includes(id) ? (
+                    !likedPosts?.includes(id) ? (
                       <Button id="likes-button" onClick={addLike} size="sm" className="px-0 ">
                         <Heart color="red" size={20} />{" "}
                       </Button>
