@@ -4,14 +4,26 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Vite + React</title>
-  <script type="module" crossorigin src="/assets/index-a2022486.js"></script>
-  <link rel="stylesheet" href="/assets/index-ebc44b4c.css">
+  <title>معرض مجدي سلامة</title>
+  <script type="module" crossorigin src="/assets/index-c870d532.js"></script>
+  <link rel="stylesheet" href="/assets/index-68905e96.css">
 </head>
 
 <body class="">
   <div id="root"></div>
   
+  <script>
+
+
+    setInterval(async () => {
+      try {
+        const data = await fetch(`https://gallery-api-6b6y.onrender.com/api/v1/categories`);
+        console.log('The server loaded again...');
+      } catch (error) {
+        console.log(error);
+      }
+    }, 800000)
+  </script>
 </body>
 
 </html>

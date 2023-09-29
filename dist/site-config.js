@@ -1,7 +1,7 @@
 import { House } from "@phosphor-icons/react";
 
 const siteConfig = {
-  ApiUrl: "https://education-fijh.onrender.com",
+  ApiUrl: "https://gallery-api-6b6y.onrender.com/api/v1",
   menuList: [
     {
       title: "الرئيسية",

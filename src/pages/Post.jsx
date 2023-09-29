@@ -9,11 +9,13 @@ import { Button, Card, Spinner } from "@nextui-org/react";
 import Categories from "../components/Categories";
 import Footer from "../components/Footer";
 import { Heart, ThumbsUp } from "@phosphor-icons/react";
+import UseLiker from "../hooks/useLiker";
 export const Post = () => {
   const { id } = useParams();
   const [post, setPost] = useState(null);
   const [likes, setLikes] = useState(0);
-  console.log(post?.category);
+  const [likesStatues, setLikesStatues] = useState(true);
+  const likedPosts = localStorage.getItem("liked-posts");
   async function getSpecificPost() {
     try {
       const { data } = await axios.get(`${siteConfig.ApiUrl}/posts/${id}`);
@@ -27,8 +29,10 @@ export const Post = () => {
     try {
       const { data } = await axios.post(`${siteConfig.ApiUrl}/posts/${id}`);
       setLikes(data.result.likes);
-      document.getElementById("likes-button").setAttribute("data-disabled", true);
-      document.getElementById("likes-button").setAttribute("disabled", "true");
+      setLikesStatues(false);
+      UseLiker(id);
+
+      document.getElementById("likes-button").classList.add("disabled");
     } catch (error) {
       console.log(error);
     }
@@ -60,9 +64,22 @@ export const Post = () => {
                 <h2 className="text-3xl font-semibold mb-5">{post.title}</h2>
                 <p className="mb-5">{post.description} </p>
                 <div className="flex items-center gap-6">
-                  <Button id="likes-button" onClick={addLike} size="sm" className="px-0">
-                    <Heart color="red" weight="fill" size={20} />{" "}
-                  </Button>
+                  {likesStatues ? (
+                    !likedPosts.includes(id) ? (
+                      <Button id="likes-button" onClick={addLike} size="sm" className="px-0 ">
+                        <Heart color="red" size={20} />{" "}
+                      </Button>
+                    ) : (
+                      <Button isDisabled id="likes-button" size="sm" className="px-0 ">
+                        <Heart color="red" weight="fill" size={20} />{" "}
+                      </Button>
+                    )
+                  ) : (
+                    <Button isDisabled id="likes-button" size="sm" className="px-0 ">
+                      <Heart color="red" weight="fill" size={20} />{" "}
+                    </Button>
+                  )}
+
                   <span className="text-lg">
                     اعجاب : <span className="text-red-600 font-bold">{likes}</span>
                   </span>
