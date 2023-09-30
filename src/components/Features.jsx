@@ -99,22 +99,11 @@ function Features() {
             className=" hover:cursor-pointer h-72 sm:h-[22rem] w-[9.5rem]  sm:w-[12.5rem]  md:w-52 lg:w-[12.1rem] lgm:w-52 "
           >
             <CardHeader className=" grow mt-5 ">
-              <img
-                className="w-full h-full  "
-                src={"https://res.cloudinary.com/dhei5kh8z/image/upload/v1694555379/images/qurklysqbztdyva7jwgh.jpg"}
-                alt="profile-picture"
-              />
+              <img className="w-full h-full  " src={item.image[0].secure_url} alt="profile-picture" />
             </CardHeader>
             <CardBody className="text-center px-2">
               <Typography variant="h4" color="blue-gray" className="mb-2 md:text-xl truncate overflow-hidden text-base">
                 {item.title}
-              </Typography>
-              <Typography color="blue-gray" className="font-medium" textGradient>
-                {/* {item.category.map((c) => (
-                  <Link to="/test" className="m-1 hover:text-deep-purple-500">
-                    {c}
-                  </Link>
-                ))} */}
               </Typography>
             </CardBody>
           </Card>

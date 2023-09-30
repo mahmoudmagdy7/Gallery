@@ -20,11 +20,16 @@ function Footer() {
       </div>
       <p className=" py-4 text-center">
         <span> Designed By </span>
-        <Link className="m-0 p-0 ct-primary">Mahmoud Magdy</Link>
+        <Link className="m-0 p-0 ct-primary" to="https://www.facebook.com/mahmoudmagdy47/" target="blanc">
+          Mahmoud Magdy
+        </Link>
         <span> and </span>
 
-        <Link className="m-0 p-0 ct-primary ms-3"> Ahmed Ashraf</Link>
-        <span>v.7.0</span>
+        <Link className="m-0 p-0 ct-primary ms-3" to="https://www.facebook.com/ahmedashrafaly22" target="blanc">
+          {" "}
+          Ahmed Ashraf
+        </Link>
+        <span>v.7.1</span>
       </p>
     </div>
   );

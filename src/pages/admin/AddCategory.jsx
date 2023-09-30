@@ -7,47 +7,16 @@ import toast, { Toaster } from "react-hot-toast";
 function AddCategory() {
   // var checkedValue = document.querySelector(".tb").value;
 
-  const [categories, setCategories] = useState(null);
-
-  async function getCategories() {
-    try {
-      const { data } = await axios.get(`${siteConfig.ApiUrl}/categories`);
-      setCategories(data.data);
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
-  useEffect(() => {
-    getCategories();
-  }, []);
-
   const title = useRef("");
-  const description = useRef("");
-  const [selectedValues, setSelectedValues] = useState([]);
-
-  const handleCheckboxChange = (event) => {
-    const value = event.target.value;
-    if (event.target.checked) {
-      // Add the value to the selectedValues array if it's checked
-      setSelectedValues([...selectedValues, value]);
-    } else {
-      // Remove the value from the selectedValues array if it's unchecked
-      setSelectedValues(selectedValues.filter((val) => val !== value));
-    }
-  };
 
   async function handleSubmit(e) {
     e.preventDefault();
     // Getting inputs values
-    const postData = {
+    const config = {
       name: title.current.value,
     };
-    console.log(postData);
     try {
-      const { data } = await axios.post(`${siteConfig.ApiUrl}/categories`, postData); // Fetch the data
-      // Notify the student that login success
-      console.log(data);
+      const { data } = await axios.post(`${siteConfig.ApiUrl}/categories`, config); // Fetch the data
       toast.success(data.message);
     } catch (error) {
       const { msgError } = error.response?.data;
@@ -57,7 +26,8 @@ function AddCategory() {
   return (
     <div className="lg:px-[15rem]">
       <Toaster />
-      <p>hello</p>
+      <p className="text-start text-lg mb-4">قم بإضافة القسم</p>
+
       <form onSubmit={handleSubmit} className="p-5 ">
         <Input ref={title} size="sm" type="text" label="العنوان" className="mb-3" />
 

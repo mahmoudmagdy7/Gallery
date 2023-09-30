@@ -41,8 +41,7 @@ export default function Login() {
       const { data } = await axios.post(`${siteConfig.ApiUrl}/auth/login`, loginData); // Fetch the data
       setIsSubmit(false); // Turn off loading spinner after getting the response
       // Notify the student that login success
-      toast.success(" تم تسجيل الدخول بنجاح ");
-      toast.loading(" جاري تحويلك للصفحة الادمن "); // !redirect the user to admin page
+      localStorage.setItem("admin_token", JSON.stringify(data.token));
 
       router("/admin");
     } catch (error) {

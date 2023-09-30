@@ -6,9 +6,11 @@ import toast, { Toaster } from "react-hot-toast";
 
 function AddPost() {
   // var checkedValue = document.querySelector(".tb").value;
+  const [isSubmit, setIsSubmit] = useState(false); // Loading spinner state
+  const [selectedValues, setSelectedValues] = useState([]);
 
   const [categories, setCategories] = useState(null);
-
+  // get the exist categories from
   async function getCategories() {
     try {
       const { data } = await axios.get(`${siteConfig.ApiUrl}/categories`);
@@ -20,11 +22,8 @@ function AddPost() {
 
   useEffect(() => {
     getCategories();
-  }, []);
-
-  const title = useRef("");
-  const description = useRef("");
-  const [selectedValues, setSelectedValues] = useState([]);
+    handleValidation();
+  }, [selectedValues]);
 
   const handleCheckboxChange = (event) => {
     const value = event.target.value;
@@ -37,55 +36,85 @@ function AddPost() {
     }
   };
 
+  const titleRef = useRef("");
+  const descriptionRef = useRef("");
+  const imagesRef = useRef("");
+
   async function handleSubmit(e) {
     e.preventDefault();
-    // Getting inputs values
-    const postData = {
-      title: title.current.value,
-      description: description.current.value,
-      category: selectedValues,
-    };
-    console.log(postData);
+    setIsSubmit(true);
+    // Create FormData inside the handleSubmit function
+    const postData = new FormData();
+    postData.append("title", titleRef.current.value);
+    postData.append("description", descriptionRef.current.value);
+
+    for (const item of selectedValues) {
+      postData.append("category", item);
+    }
+    for (let i = 0; i < imagesRef.current.files.length; i++) {
+      postData.append("image", imagesRef.current.files[i]);
+    }
+
     try {
       const { data } = await axios.post(`${siteConfig.ApiUrl}/posts/`, postData); // Fetch the data
       // Notify the student that login success
-      console.log(data);
+      setIsSubmit(false);
+
       toast.success(data.message);
     } catch (error) {
       const { msgError } = error.response?.data;
+      setIsSubmit(false);
+
       toast.error(msgError);
     }
   }
+
+  function handleValidation() {
+    if (titleRef.current.value != "" && descriptionRef.current.value != "" && selectedValues.length != 0 && imagesRef.current.value != "") {
+      document.getElementById("submit-button").disabled = false;
+    } else {
+      document.getElementById("submit-button").disabled = true;
+    }
+  }
   return (
-    <div className="lg:px-[15rem]">
+    <div className="lg:px-[15rem] mt-8">
       <Toaster />
-      <p>hello</p>
-      <form onSubmit={handleSubmit} className="p-5 ">
-        <Input ref={title} size="sm" type="text" label="العنوان" className="mb-3" />
+      <p className="text-start text-lg mb-4">قم بإضافة البوست</p>
+      <form onSubmit={handleSubmit} onChange={handleValidation} className="p-5 shadow-lg shadow-gray-300 rounded-xl">
+        <Input ref={titleRef} size="sm" type="text" label="العنوان" className="mb-3" />
         <Textarea
-          ref={description}
+          ref={descriptionRef}
           key={"flat"}
           variant={"flat"}
           labelPlacement="outside"
           placeholder="ادخل الوصف"
           className="col-span-12 md:col-span-6 mb-6 md:mb-0"
         />
-        {/* <Select label="اختر القسم" className="max-w-xs">
-          {animals.map((animal) => (
-            <SelectItem key={animal.value} value={animal.value}>
-              {animal.label}
-            </SelectItem>
-          ))}
-        </Select> */}
-        <p className="text-start">اختر القسم</p>
-        <div color="secondary" className=" my-3 mb-5 grid grid-cols-5">
+
+        <p className="text-start mt-5">اختر القسم</p>
+        <div color="secondary" className=" my-3 mb-5 grid grid-cols-2 gap-4">
           {categories?.map((c) => (
             <Checkbox key={c._id} value={c._id} onChange={handleCheckboxChange} className="gap-2">
               {c.name}
             </Checkbox>
           ))}
         </div>
-        <Button type="submit">submit</Button>
+        <Input ref={imagesRef} size="sm" type="file" className="w-52  my-8 mx-auto bg-red-50" accept="image/*" multiple />
+
+        {!isSubmit ? (
+          <Button
+            id="submit-button"
+            disabled
+            type="submit"
+            className="h-9 w-full mt-5 cbg-primary ct-5 cbg-primary-hover rounded-lg text-md disabled:opacity-40"
+          >
+            <span>إضافة</span>
+          </Button>
+        ) : (
+          <Button id="submit-button" type="submit" className="h-9 w-full mt-5 cbg-primary ct-5 cbg-primary-hover rounded-lg text-md" isLoading>
+            <span>جاري الاضافة</span>
+          </Button>
+        )}
       </form>
     </div>
   );

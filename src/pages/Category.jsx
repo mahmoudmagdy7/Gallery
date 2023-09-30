@@ -10,12 +10,11 @@ import { Card, Spinner } from "@nextui-org/react";
 export const Category = () => {
   const { id } = useParams();
   const [category, setCategory] = useState(null);
-  const router = useNavigate();
+
   async function getSpecificCategory() {
     try {
       const { data } = await axios.get(`${siteConfig.ApiUrl}/categories/${id}`);
       setCategory(data.result);
-      console.log(category.Post.length == 0);
     } catch (error) {
       console.log(error);
     }
@@ -24,7 +23,7 @@ export const Category = () => {
   useEffect(() => {
     getSpecificCategory();
   }, []);
-  // const postsList = [
+
   //   {
   //     image: "/assets/dummy-images/WhatsApp Image 2023-09-11 at 10.19.34 AM.jpeg",
   //     title: " الجمل احمد الجمل",
@@ -108,13 +107,11 @@ export const Category = () => {
       >
         {category?.Post?.length != 0 ? (
           category?.Post.map((item, i) => {
-            console.log(category);
-
             return (
-              <Link to={"/post/" + item._id}>
-                <Card key={i} className=" hover:cursor-pointer h-72 sm:h-[22rem] w-[9.5rem]  sm:w-[12.5rem]  md:w-52 lg:w-[12.1rem] lgm:w-52 ">
+              <Link key={i} to={"/post/" + item._id}>
+                <Card className=" hover:cursor-pointer h-72 sm:h-[22rem] w-[9.5rem]  sm:w-[12.5rem]  md:w-52 lg:w-[12.1rem] lgm:w-52 ">
                   <CardHeader className=" grow mt-5 ">
-                    <img className="w-full h-full  " src={item.image} alt="profile-picture" />
+                    <img className="w-full h-full  " src={item.image[0].secure_url} alt="profile-picture" />
                   </CardHeader>
                   <CardBody className="text-center px-2">
                     <Typography variant="h4" color="blue-gray" className="mb-2 md:text-xl truncate overflow-hidden text-base">

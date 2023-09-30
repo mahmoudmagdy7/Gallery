@@ -6,18 +6,17 @@ export default function AdminDashboardLayout() {
   return (
     <>
       <section className=" text-center p-5">
-        <p className="text-3xl mb-5">
-          {" "}
-          Admin dashboard{" "}
-          <Button>
+        <div className="text-3xl mb-10 flex justify-center gap-5 items-center">
+          <Button color="primary">
             <Link to={"/"}> الصفحة الرئيسية </Link>
-          </Button>{" "}
-        </p>
+          </Button>
+          <p> Admin dashboard</p>
+        </div>
         <div className="flex gap-3 justify-center">
-          <Button>
+          <Button color="success">
             <Link to={"add-post"}>إضافة منشور جديد</Link>
-          </Button>{" "}
-          <Button>
+          </Button>
+          <Button color="warning">
             <Link to={"add-category"}>إضافة قسم جديد</Link>
           </Button>
         </div>

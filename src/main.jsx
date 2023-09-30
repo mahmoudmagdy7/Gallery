@@ -1,8 +1,6 @@
 import ReactDOM from "react-dom/client";
-// import * as React from "react";
-// import "./index.css";
 import "../style/App.scss";
-import { RouterProvider, createBrowserRouter, createHashRouter } from "react-router-dom";
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { NextUIProvider } from "@nextui-org/react";
 
 import Login from "./pages/auth/login";

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { StickyNavbar } from "../components/StickyNavbar";
 
-import { Carousel } from "@material-tailwind/react";
+import { Carousel, IconButton } from "@material-tailwind/react";
 import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 import siteConfig from "../../public/site-config";
@@ -53,13 +53,45 @@ export const Post = () => {
             <Spinner color="default" labelColor="foreground" />
           ) : (
             <>
-              <Carousel className="rounded-xl  max-h-[694px]  overflow-hidden">
-                <img
-                  src={post.image != "" ? post.image : "https://res.cloudinary.com/dhei5kh8z/image/upload/v1694555379/images/qurklysqbztdyva7jwgh.jpg"}
-                  alt="image 2"
-                  className="h-full grow w-full object-cover"
-                />
+              <Carousel
+                className="rounded-xl border-2"
+                prevArrow={({ handlePrev }) => (
+                  <IconButton variant="text" color="blue" size="lg" onClick={handlePrev} className="!absolute top-2/4 left-4 -translate-y-2/4">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="h-6 w-6">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
+                    </svg>
+                  </IconButton>
+                )}
+                nextArrow={({ handleNext }) => (
+                  <IconButton variant="text" color="blue" size="lg" onClick={handleNext} className="!absolute top-2/4 !right-4 -translate-y-2/4">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="h-6 w-6">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                    </svg>
+                  </IconButton>
+                )}
+              >
+                {post.image != "" ? (
+                  post.image.map((i, idx) => <img key={idx} src={i.secure_url} alt="image 2" className="h-full grow w-full object-cover" />)
+                ) : (
+                  <img
+                    src={"https://res.cloudinary.com/dhei5kh8z/image/upload/v1694555379/images/qurklysqbztdyva7jwgh.jpg"}
+                    alt="image 2"
+                    className="h-full grow w-full object-cover"
+                  />
+                )}
               </Carousel>
+
+              {/* <Carousel className="rounded-xl  max-h-[694px]  overflow-hidden">
+                {post.image != "" ? (
+                  post.image.map((i) => <img src={i.secure_url} alt="image 2" className="h-full grow w-full object-cover" />)
+                ) : (
+                  <img
+                    src={"https://res.cloudinary.com/dhei5kh8z/image/upload/v1694555379/images/qurklysqbztdyva7jwgh.jpg"}
+                    alt="image 2"
+                    className="h-full grow w-full object-cover"
+                  />
+                )}
+              </Carousel> */}
               <div className="  ps-2 pe-5 py-5" style={{ direction: "rtl" }}>
                 <h2 className="text-3xl font-semibold mb-5">{post.title}</h2>
                 <p className="mb-5">{post.description} </p>
@@ -87,7 +119,7 @@ export const Post = () => {
                 <div>
                   <h2 className="font-semibold">الاقسام </h2>
                   {post?.category.map((c) => (
-                    <Link className="inline-block mx-1 ct-primary" to={"/category/" + c._id}>
+                    <Link key={c._id} className="inline-block mx-1 ct-primary" to={"/category/" + c._id}>
                       {c.name}
                     </Link>
                   ))}
