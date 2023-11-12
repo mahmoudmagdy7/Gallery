@@ -6,6 +6,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import siteConfig from "../../public/site-config";
 import { Card, Spinner } from "@nextui-org/react";
+import Footer from "../components/Footer";
 
 export const Category = () => {
   const { id } = useParams();
@@ -126,6 +127,7 @@ export const Category = () => {
           <p className="text-2xl col-span-full">لا يوجد منشورات هنا </p>
         )}
       </div>
+      <Footer />
     </>
   );
 };

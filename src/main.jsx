@@ -14,6 +14,8 @@ import CategoriesPage from "./pages/CategoriesPage";
 import AboutMe from "./pages/AboutMe";
 import AddPost from "./pages/admin/AddPost";
 import AddCategory from "./pages/admin/AddCategory";
+import RemoveCat from "./pages/admin/RemoveCat";
+import RemovePost from "./pages/admin/RemovePost";
 
 const route = createBrowserRouter([
   { path: "/auth/login", element: <Login /> },
@@ -34,6 +36,8 @@ const route = createBrowserRouter([
       // Admin Dashboard routes
       { path: "add-post", element: <AddPost /> },
       { path: "add-category", element: <AddCategory /> },
+      { path: "remove-category", element: <RemoveCat /> },
+      { path: "remove-post", element: <RemovePost /> },
     ],
   },
 ]);

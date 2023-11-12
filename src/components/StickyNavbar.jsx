@@ -68,16 +68,6 @@ function NavListMenu() {
 // nav list component
 const navListItems = [
   {
-    label: "عني",
-    icon: UserIcon,
-    link: "/about-me",
-  },
-  {
-    label: "تواصل معي",
-    icon: ChatBubbleBottomCenterIcon,
-    link: "https://wa.me/201062210524",
-  },
-  {
     label: "الرئيسية",
     icon: CodeBracketSquareIcon,
     link: "/",
@@ -95,11 +85,11 @@ function NavList() {
       <ul className="mb-4 mt-2 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center text-blue-gray-900">
         {/* <NavListMenu /> */}
         {navListItems.map(({ label, icon, link }, key) => (
-          <Typography key={label} as="a" href={link} className="font-normal text-lg">
+          <Link key={label} to={link} className="font-normal text-lg">
             <MenuItem className="flex items-center gap-2 ">
               {React.createElement(icon, { className: "h-[18px] w-[18px]" })} {label}
             </MenuItem>
-          </Typography>
+          </Link>
         ))}
       </ul>
     </>
@@ -125,15 +115,16 @@ export function StickyNavbar() {
   }, []);
 
   return (
-    <Navbar className="mx-auto p-2  lg:pl-6 bg-transparent border-none shadow-none">
+    <Navbar className="mx-auto p-2  lg:pl-6 bg-transparent border-none shadow-none py-3">
       <div className="relative mx-auto flex items-center text-blue-gray-900">
         <IconButton size="sm" color="blue-gray" variant="text" onClick={toggleIsNavOpen} className="ml-auto mr-2 lg:hidden">
           <Bars2Icon className="h-6 w-6" />
         </IconButton>
-        <Typography as="a" href="#" className="mr-4 ml-2 cursor-pointer py-1.5 font-medium">
-          <img src="/assets/images/main-logo.png" alt="" />
-        </Typography>
+        <h1 className="font-bold ct-primary">Magdy Salama</h1>
         <div className="absolute top-2/4  left-2/4 hidden -translate-x-2/4 -translate-y-2/4 lg:block">
+          {/* <Typography as={Link} to="/" className="mr-4 ml-2 cursor-pointer py-1.5 font-medium"> */}
+          {/* <img src="/assets/images/main-logo.png" alt="" /> */}
+          {/* </Typography> */}
           <NavList />
         </div>
       </div>

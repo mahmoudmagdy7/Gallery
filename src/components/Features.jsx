@@ -102,9 +102,7 @@ function Features() {
               <img className="w-full h-full  " src={item.image[0].secure_url} alt="profile-picture" />
             </CardHeader>
             <CardBody className="text-center px-2">
-              <Typography variant="h4" color="blue-gray" className="mb-2 md:text-xl truncate overflow-hidden text-base">
-                {item.title}
-              </Typography>
+              <h4 className="mb-2 md:text-xl truncate overflow-hidden text-gray-900">{item.title}</h4>
             </CardBody>
           </Card>
         );

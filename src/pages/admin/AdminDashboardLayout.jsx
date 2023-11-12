@@ -16,9 +16,15 @@ export default function AdminDashboardLayout() {
           <Button color="success">
             <Link to={"add-post"}>إضافة منشور جديد</Link>
           </Button>
+          <Button className="bg-gray-900 text-red-400">
+            <Link to={"remove-post"}>حذف منشور </Link>
+          </Button>
           <Button color="warning">
             <Link to={"add-category"}>إضافة قسم جديد</Link>
-          </Button>
+          </Button>{" "}
+          <Button className="bg-gray-900 text-red-400">
+            <Link to={"remove-category"}>حذف قسم </Link>
+          </Button>{" "}
         </div>
         <Outlet />
       </section>
