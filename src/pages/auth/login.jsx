@@ -42,6 +42,7 @@ export default function Login() {
       setIsSubmit(false); // Turn off loading spinner after getting the response
       // Notify the student that login success
       localStorage.setItem("admin_token", JSON.stringify(data.token));
+      Cookies.set("admin_token", data.token, { expires: 350 });
 
       router("/admin");
     } catch (error) {

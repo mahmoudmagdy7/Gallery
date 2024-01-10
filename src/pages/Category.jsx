@@ -7,85 +7,24 @@ import axios from "axios";
 import siteConfig from "../../public/site-config";
 import { Card, Spinner } from "@nextui-org/react";
 import Footer from "../components/Footer";
+import { useQuery } from "react-query";
 
 export const Category = () => {
   const { id } = useParams();
-  const [category, setCategory] = useState(null);
 
   async function getSpecificCategory() {
     try {
       const { data } = await axios.get(`${siteConfig.ApiUrl}/categories/${id}`);
-      setCategory(data.result);
+      return data;
     } catch (error) {
       console.log(error);
     }
   }
+  const { data, isLoading, isError, refetch, isFetching } = useQuery("getSpecificCategory", getSpecificCategory, {
+    refetchOnWindowFocus: false, // to prevent the refetching on window focus
+  });
+  const category = data?.result;
 
-  useEffect(() => {
-    getSpecificCategory();
-  }, []);
-
-  //   {
-  //     image: "/assets/dummy-images/WhatsApp Image 2023-09-11 at 10.19.34 AM.jpeg",
-  //     title: " الجمل احمد الجمل",
-  //     categories: ["شهداء", "الروضة", "الروضة"],
-  //     id: "hello",
-  //   },
-  //   {
-  //     image: "/assets/dummy-images/WhatsApp Image 2023-09-11 at 10.20.09 AM.jpeg",
-  //     title: "mohammed ahemd",
-  //     categories: ["ahmed", "mohammed"],
-  //     id: "hello",
-  //   },
-  //   {
-  //     image: "/assets/dummy-images/WhatsApp Image 2023-09-11 at 10.20.40 AM.jpeg",
-  //     title: "mohammed ahemd",
-  //     categories: ["ahmed", "mohammed"],
-  //     id: "hello",
-  //   },
-  //   {
-  //     image: "/assets/dummy-images/WhatsApp Image 2023-09-11 at 10.21.20 AM.jpeg",
-  //     title: "mohammed ahemd",
-  //     categories: ["ahmed", "mohammed"],
-  //     id: "hello",
-  //   },
-  //   {
-  //     image: "/assets/dummy-images/WhatsApp Image 2023-09-11 at 10.19.34 AM.jpeg",
-  //     title: "mohammed ahemd",
-  //     categories: ["ahmed", "mohammed"],
-  //     id: "hello",
-  //   },
-  //   {
-  //     image: "/assets/dummy-images/WhatsApp Image 2023-09-11 at 10.20.09 AM.jpeg",
-  //     title: "mohammed ahemd",
-  //     categories: ["ahmed", "mohammed"],
-  //     id: "hello",
-  //   },
-  //   {
-  //     image: "/assets/dummy-images/WhatsApp Image 2023-09-11 at 10.20.40 AM.jpeg",
-  //     title: "mohammed ahemd",
-  //     categories: ["ahmed", "mohammed"],
-  //     id: "hello",
-  //   },
-  //   {
-  //     image: "/assets/dummy-images/WhatsApp Image 2023-09-11 at 10.21.20 AM.jpeg",
-  //     title: "mohammed ahemd",
-  //     categories: ["ahmed", "mohammed"],
-  //     id: "hello",
-  //   },
-  //   {
-  //     image: "/assets/dummy-images/WhatsApp Image 2023-09-11 at 10.20.40 AM.jpeg",
-  //     title: "mohammed ahemd",
-  //     categories: ["ahmed", "mohammed"],
-  //     id: "hello",
-  //   },
-  //   {
-  //     image: "/assets/dummy-images/WhatsApp Image 2023-09-11 at 10.21.20 AM.jpeg",
-  //     title: "mohammed ahemd",
-  //     categories: ["ahmed", "mohammed"],
-  //     id: "hello",
-  //   },
-  // ];
   return (
     <>
       <nav className="px-5  sticky top-0 end-0 z-50 mx-5 rounded-lg">

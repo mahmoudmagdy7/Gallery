@@ -1,7 +1,8 @@
+import Cookies from "js-cookie";
 import { Navigate } from "react-router-dom";
 
 export default function AdminProtection({ children }) {
-  if (localStorage.getItem("admin_token") == null) {
+  if (Cookies.get("admin_token")) {
     {
       return children;
     }

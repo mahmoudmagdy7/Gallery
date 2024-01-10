@@ -3,47 +3,24 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import siteConfig from "../../public/site-config";
+import { useQuery } from "react-query";
 
 export default function Categories() {
-  // const categories = [
-  //   "البحيرة",
-  //   "سيناء",
-  //   "الروضة",
-  //   "القهرة",
-  //   "شهداء",
-  //   "شهداء القوات المسلحة",
-  //   " شهداء مدنيين",
-  //   " محافظة البحيرة",
-  //   "وجوه مصرية",
-  //   "وجوه عربية",
-  //   "مشاهير",
-  //   "من معارضنا",
-  //   "فيديوهات",
-  //   "منوعات",
-  //   "على قيد الحياة",
-  //   "مزدوجة",
-  //   "مميزة",
-  //   "تدريب",
-  //   "أمير",
-  //   "اوريجامى",
-  // ];
-
-  const [categories, setCategories] = useState(null);
-
   async function getCategories() {
     try {
       const { data } = await axios.get(`${siteConfig.ApiUrl}/categories`);
-      setCategories(data.data);
+      return data;
     } catch (error) {
       console.log(error);
     }
   }
 
-  useEffect(() => {
-    getCategories();
-  }, []);
+  const { data, isLoading, isError, refetch, isFetching } = useQuery("getCategories", getCategories, {
+    refetchOnWindowFocus: false, // to prevent the refetching on window focus
+  });
 
-  // categories;
+  const categories = data?.data;
+
   return (
     <section className=" py-10">
       <div className="max-w-screen-2xl m-auto">

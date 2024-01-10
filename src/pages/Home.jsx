@@ -5,7 +5,7 @@ import { StickyNavbar } from "../components/StickyNavbar";
 import Categories from "../components/Categories";
 import Features from "../components/Features";
 import Footer from "../components/Footer";
-
+import { Command } from "@phosphor-icons/react";
 export default function Home() {
   return (
     <>

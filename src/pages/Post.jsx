@@ -10,17 +10,24 @@ import Categories from "../components/Categories";
 import Footer from "../components/Footer";
 import { Heart, ThumbsUp } from "@phosphor-icons/react";
 import UseLiker from "../hooks/useLiker";
+import { useQuery } from "react-query";
 export const Post = () => {
   const { id } = useParams();
-  const [post, setPost] = useState(null);
+  // const [post, setPost] = useState(null);
   const [likes, setLikes] = useState(0);
   const [likesStatues, setLikesStatues] = useState(true);
   const likedPosts = localStorage.getItem("liked-posts");
+
+  const { data, isLoading, isRefetching } = useQuery("getSpecificPost", getSpecificPost, {
+    refetchOnWindowFocus: false, // to prevent the refetching on window focus
+  });
+  const post = data?.result;
   async function getSpecificPost() {
     try {
       const { data } = await axios.get(`${siteConfig.ApiUrl}/posts/${id}`);
-      setPost(data.result);
+      // setPost(data.result);
       setLikes(data.result.likes);
+      return data;
     } catch (error) {
       console.log(error);
     }
@@ -38,10 +45,6 @@ export const Post = () => {
     }
   }
 
-  useEffect(() => {
-    getSpecificPost();
-  }, []);
-
   return (
     <>
       <nav className="px-5  sticky top-0 end-0 z-50 mx-5 rounded-lg">
@@ -49,7 +52,7 @@ export const Post = () => {
       </nav>{" "}
       <section className="p-5 max-w-3xl lg:max-w-6xl m-auto cbg-main">
         <Card className={post ? "p-5 grid grid-cols-1 md:grid-cols-2 " : "p-5 grid grid-cols-1"} style={{ direction: "ltr" }}>
-          {post == null ? (
+          {isLoading || isRefetching ? (
             <Spinner color="default" labelColor="foreground" />
           ) : (
             <>

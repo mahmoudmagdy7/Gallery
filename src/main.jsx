@@ -16,15 +16,22 @@ import AddPost from "./pages/admin/AddPost";
 import AddCategory from "./pages/admin/AddCategory";
 import RemoveCat from "./pages/admin/RemoveCat";
 import RemovePost from "./pages/admin/RemovePost";
+import Layout from "./pages/Layout";
+import { QueryClient, QueryClientProvider } from "react-query";
 
 const route = createBrowserRouter([
-  { path: "/auth/login", element: <Login /> },
-  { path: "/post/:id", element: <Post /> },
-  { path: "/about-me", element: <AboutMe /> },
-  { path: "/categories", element: <CategoriesPage /> },
-  { path: "/category/:id", element: <Category /> },
-  { path: "/", element: <Home /> },
-
+  {
+    path: "/",
+    element: <Layout />,
+    children: [
+      { path: "/auth/login", element: <Login /> },
+      { path: "/post/:id", element: <Post /> },
+      { path: "/about-me", element: <AboutMe /> },
+      { path: "/categories", element: <CategoriesPage /> },
+      { path: "/category/:id", element: <Category /> },
+      { path: "/", element: <Home /> },
+    ],
+  },
   {
     path: "/admin",
     element: (
@@ -42,10 +49,13 @@ const route = createBrowserRouter([
   },
 ]);
 
+const queryClient = new QueryClient();
 ReactDOM.createRoot(document.getElementById("root")).render(
   <NextUIProvider>
     <ThemProvider>
-      <RouterProvider router={route} />
+      <QueryClientProvider client={queryClient}>
+        <RouterProvider router={route} />
+      </QueryClientProvider>
     </ThemProvider>
   </NextUIProvider>
 );

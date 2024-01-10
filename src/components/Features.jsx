@@ -4,85 +4,24 @@ import { Link, useNavigate } from "react-router-dom";
 
 import siteConfig from "../../public/site-config";
 import axios from "axios";
+import { useQuery } from "react-query";
 
 function Features() {
   const navigate = useNavigate();
-  const featuresList = [
-    {
-      image: "/assets/dummy-images/WhatsApp Image 2023-09-11 at 10.19.34 AM.jpeg",
-      title: " الجمل احمد الجمل",
-      categories: ["شهداء", "الروضة", "الروضة"],
-      id: "hello",
-    },
-    {
-      image: "/assets/dummy-images/WhatsApp Image 2023-09-11 at 10.20.09 AM.jpeg",
-      title: "mohammed ahemd",
-      categories: ["ahmed", "mohammed"],
-      id: "hello",
-    },
-    {
-      image: "/assets/dummy-images/WhatsApp Image 2023-09-11 at 10.20.40 AM.jpeg",
-      title: "mohammed ahemd",
-      categories: ["ahmed", "mohammed"],
-      id: "hello",
-    },
-    {
-      image: "/assets/dummy-images/WhatsApp Image 2023-09-11 at 10.21.20 AM.jpeg",
-      title: "mohammed ahemd",
-      categories: ["ahmed", "mohammed"],
-      id: "hello",
-    },
-    {
-      image: "/assets/dummy-images/WhatsApp Image 2023-09-11 at 10.19.34 AM.jpeg",
-      title: "mohammed ahemd",
-      categories: ["ahmed", "mohammed"],
-      id: "hello",
-    },
-    {
-      image: "/assets/dummy-images/WhatsApp Image 2023-09-11 at 10.20.09 AM.jpeg",
-      title: "mohammed ahemd",
-      categories: ["ahmed", "mohammed"],
-      id: "hello",
-    },
-    {
-      image: "/assets/dummy-images/WhatsApp Image 2023-09-11 at 10.20.40 AM.jpeg",
-      title: "mohammed ahemd",
-      categories: ["ahmed", "mohammed"],
-      id: "hello",
-    },
-    {
-      image: "/assets/dummy-images/WhatsApp Image 2023-09-11 at 10.21.20 AM.jpeg",
-      title: "mohammed ahemd",
-      categories: ["ahmed", "mohammed"],
-      id: "hello",
-    },
-    {
-      image: "/assets/dummy-images/WhatsApp Image 2023-09-11 at 10.20.40 AM.jpeg",
-      title: "mohammed ahemd",
-      categories: ["ahmed", "mohammed"],
-      id: "hello",
-    },
-    {
-      image: "/assets/dummy-images/WhatsApp Image 2023-09-11 at 10.21.20 AM.jpeg",
-      title: "mohammed ahemd",
-      categories: ["ahmed", "mohammed"],
-      id: "hello",
-    },
-  ];
 
-  const [postsList, setPostsList] = useState([]);
+  const { data, isLoading, isError, refetch, isFetching } = useQuery("getPosts", getPosts, {
+    refetchOnWindowFocus: false, // to prevent the refetching on window focus
+  });
+  const postsList = data?.post;
   async function getPosts() {
     try {
       const { data } = await axios.get(`${siteConfig.ApiUrl}/posts`);
-      setPostsList(data.post);
+      console.log(data);
+      return data;
     } catch (error) {
       console.log(error);
     }
   }
-
-  useEffect(() => {
-    getPosts();
-  }, []);
 
   return (
     <div

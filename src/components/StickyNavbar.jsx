@@ -122,9 +122,6 @@ export function StickyNavbar() {
         </IconButton>
         <h1 className="font-bold ct-primary">Magdy Salama</h1>
         <div className="absolute top-2/4  left-2/4 hidden -translate-x-2/4 -translate-y-2/4 lg:block">
-          {/* <Typography as={Link} to="/" className="mr-4 ml-2 cursor-pointer py-1.5 font-medium"> */}
-          {/* <img src="/assets/images/main-logo.png" alt="" /> */}
-          {/* </Typography> */}
           <NavList />
         </div>
       </div>
